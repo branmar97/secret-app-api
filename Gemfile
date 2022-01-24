@@ -19,6 +19,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 # Use JSON Web Tokens
 gem 'devise-jwt'
+gem 'fast_jsonapi'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
