@@ -16,6 +16,22 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '252f72aa1d24f97ed36439ee17b9cf248312d0b7fff534cb4ffdfba9bf14602d4fe2e02089e32f1360b901218a4a65bcb82f56c9e5337e2e4af9491ee74db65c'
 
+  # ==> JWT configuration
+  # Specifies that on every post request to login call, append JWT token to 
+  # Authorization header as "Bearer" + token when there's a successful response sent
+  config.jwt do |jwt|
+    jwt.secret = Rails.application.credentials.fetch(:secret_key_base)
+    jwt.dispatch_requests = [
+      ['POST', %r{^/login$}]
+    ]
+    # On a delete call to logout endpoint, the token should be revoked
+    jwt.revocation_requests = [
+      ['DELETE', %r{^/logout$}]
+    ]
+    # Generated token expires after 30 minutes
+    jwt.expiration_time = 30.minutes.to_i
+  end
+
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
